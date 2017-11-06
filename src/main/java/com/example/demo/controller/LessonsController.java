@@ -24,4 +24,14 @@ public class LessonsController {
         return this.repository.save(lesson);
     }
 
+    @PutMapping("")
+    public Lesson update(@RequestBody Lesson lesson) throws InvalidIdException {
+        if (this.repository.findOne(lesson.getId()) != null) {
+            return this.repository.save(lesson);
+        }
+        else {
+            throw new InvalidIdException("ID doesn't exost!");
+        }
+    }
+
 }
