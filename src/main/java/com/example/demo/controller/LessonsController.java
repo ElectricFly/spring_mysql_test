@@ -19,19 +19,36 @@ public class LessonsController {
         return this.repository.findAll();
     }
 
+    @GetMapping("{id}")
+    public Lesson getOne(@PathVariable Long id) {
+        return this.repository.findOne(id);
+    }
+
+    @DeleteMapping("{id}")
+    public void delete(@PathVariable Long id) throws InvalidIdException {
+        if (this.repository.findOne(id) != null) {
+            this.repository.delete(id);
+        }
+        else {
+            throw new InvalidIdException("ID doesn't exist!");
+        }
+    }
+
     @PostMapping("")
     public Lesson create(@RequestBody Lesson lesson) {
         return this.repository.save(lesson);
     }
 
-    @PutMapping("")
-    public Lesson update(@RequestBody Lesson lesson) throws InvalidIdException {
-        if (this.repository.findOne(lesson.getId()) != null) {
+    @PutMapping("{id}")
+    public Lesson update(@RequestBody Lesson lesson, @PathVariable Long id) throws InvalidIdException {
+        if (this.repository.findOne(id) != null) {
+            lesson.setId(id);
             return this.repository.save(lesson);
         }
         else {
-            throw new InvalidIdException("ID doesn't exost!");
+            throw new InvalidIdException("ID doesn't exist!");
         }
     }
+
 
 }
