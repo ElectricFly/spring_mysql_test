@@ -11,6 +11,8 @@ import org.springframework.http.*;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -34,7 +36,8 @@ public class LessonsControllerTestTemplate {
     @Test
     public void testGetAll() {
 
-        jdbcTemplate.execute("INSERT INTO lessons (title, delivered_on) VALUES ('Test', '2017-11-07');");
+        long timestamp = 1510054108997L;
+        jdbcTemplate.execute("INSERT INTO lessons (title, delivered_on) VALUES ('Test', '1510054108997');");
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -48,6 +51,6 @@ public class LessonsControllerTestTemplate {
         JsonObject jsonObject = lessonsList.get(0).getAsJsonObject();
         assertThat(jsonObject.get("id").getAsInt(), equalTo(1));
         assertThat(jsonObject.get("title").getAsString(), equalTo("Test"));
-        //assertThat(jsonObject.get("deliveredOn").getAsString(), equalTo("2017-11-07"));
+        assertThat(jsonObject.get("deliveredOn").getAsString(), equalTo("1510054108997"));
     }
 }

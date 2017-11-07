@@ -49,7 +49,8 @@ public class LessonsControllerTestMockDB {
         ArrayList<Lesson> lessonList = new ArrayList<>();
         Lesson lesson = new Lesson();
         lesson.setId(Long.valueOf(1));
-        lesson.setDeliveredOn(new Date());
+        long timestamp = new Date().getTime();
+        lesson.setDeliveredOn(timestamp);
         lesson.setTitle("Lesson");
         lessonList.add(lesson);
         when(lessonRepositoryMock.findAll()).thenReturn(lessonList);
@@ -58,7 +59,8 @@ public class LessonsControllerTestMockDB {
         //Exercise & Assert
         mvc.perform(get("/lessons"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id", is(1)));
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[0].deliveredOn", is(timestamp)));
 
         verify(lessonRepositoryMock, times(1)).findAll();
     }

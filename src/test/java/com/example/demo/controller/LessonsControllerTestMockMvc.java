@@ -5,7 +5,6 @@ import com.example.demo.domain.entity.Lesson;
 import com.example.demo.domain.repository.LessonRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,16 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
-import static com.sun.org.apache.xerces.internal.util.PropertyState.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -57,8 +50,7 @@ public class LessonsControllerTestMockMvc {
     public void testGetAll() throws Exception {
         Lesson expected = new Lesson();
         expected.setTitle("Lesson1");
-
-        expected.setDeliveredOn(new Date());
+        expected.setDeliveredOn(new Date().getTime());
 
         lessonRepository.save(expected);
 

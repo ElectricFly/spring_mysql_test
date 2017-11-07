@@ -16,9 +16,9 @@ public class Lesson {
     private String title;
 
 
-    @Column(columnDefinition = "date")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date deliveredOn;
+    //@Column(columnDefinition = "date")
+    //@JsonFormat(pattern = "yyyy-MM-dd")
+    private Long deliveredOn;
 
     public Long getId() {
         return id;
@@ -36,11 +36,11 @@ public class Lesson {
         this.title = title;
     }
 
-    public Date getDeliveredOn() {
+    public Long getDeliveredOn() {
         return deliveredOn;
     }
 
-    public void setDeliveredOn(Date deliveredOn) {
+    public void setDeliveredOn(Long deliveredOn) {
         this.deliveredOn = deliveredOn;
     }
 
