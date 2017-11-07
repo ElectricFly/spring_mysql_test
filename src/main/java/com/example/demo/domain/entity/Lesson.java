@@ -43,4 +43,22 @@ public class Lesson {
     public void setDeliveredOn(Date deliveredOn) {
         this.deliveredOn = deliveredOn;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Lesson lesson = (Lesson) o;
+
+        if (title != null ? !title.equals(lesson.title) : lesson.title != null) return false;
+        return deliveredOn != null ? deliveredOn.equals(lesson.deliveredOn) : lesson.deliveredOn == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + (deliveredOn != null ? deliveredOn.hashCode() : 0);
+        return result;
+    }
 }
